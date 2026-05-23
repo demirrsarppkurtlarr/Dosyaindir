@@ -18,7 +18,7 @@ services:
         defaultValue: https://dosyaindir.onrender.com
       - key: MAX_FILE_SIZE
         sync: false
-        defaultValue: "5368709120"
+        defaultValue: "2147483648"
       - key: CHUNK_SIZE
         sync: false
         defaultValue: "5242880"

@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     console.log(`Generated share code: ${shareCode}`)
 
-    // Upload files to Supabase Storage
+    // Upload files to Supabase Storage with streaming
     const uploadedFiles = []
     for (const file of files) {
       const fileExt = file.name.split(".").pop()
@@ -56,10 +56,15 @@ export async function POST(req: NextRequest) {
 
       console.log(`Uploading file: ${file.name} (${file.size} bytes)`)
 
+      // Convert File to ArrayBuffer and then to Uint8Array for streaming
+      const arrayBuffer = await file.arrayBuffer()
+      const uint8Array = new Uint8Array(arrayBuffer)
+
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("files")
-        .upload(filePath, file, {
+        .upload(filePath, uint8Array, {
           upsert: false,
+          contentType: file.type,
         })
 
       if (uploadError) {

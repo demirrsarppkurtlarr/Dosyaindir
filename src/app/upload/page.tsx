@@ -25,7 +25,7 @@ export default function UploadPage() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: true,
-    maxSize: 5 * 1024 * 1024 * 1024, // 5GB
+    maxSize: 2 * 1024 * 1024 * 1024, // 2GB
   })
 
   const handleUpload = async () => {
@@ -128,7 +128,7 @@ export default function UploadPage() {
               <CardHeader>
                 <CardTitle>Drop your files here</CardTitle>
                 <CardDescription>
-                  Upload any file type. Maximum file size: 5GB
+                  Upload any file type. Maximum file size: 2GB
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
