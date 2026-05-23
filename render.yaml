@@ -16,7 +16,7 @@ services:
         defaultValue: https://dosyaindir-frontend.onrender.com
       - key: MAX_FILE_SIZE
         sync: false
-        defaultValue: "5368709120"
+        defaultValue: "21474836480"
       - key: CHUNK_SIZE
         sync: false
         defaultValue: "5242880"
@@ -43,7 +43,7 @@ services:
         defaultValue: https://dosyaindir-backend.onrender.com
       - key: MAX_FILE_SIZE
         sync: false
-        defaultValue: "5368709120"
+        defaultValue: "21474836480"
       - key: CHUNK_SIZE
         sync: false
         defaultValue: "5242880"

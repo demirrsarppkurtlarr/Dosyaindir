@@ -138,7 +138,7 @@ Render will automatically create and deploy both services.
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
 - `NEXT_PUBLIC_APP_URL` - Your frontend URL (e.g., https://dosyaindir-frontend.onrender.com)
 - `NEXT_PUBLIC_API_URL` - Your backend URL (e.g., https://dosyaindir-backend.onrender.com)
-- `MAX_FILE_SIZE` - Maximum file size in bytes (default: 5368709120 = 5GB)
+- `MAX_FILE_SIZE` - Maximum file size in bytes (default: 21474836480 = 20GB)
 - `CHUNK_SIZE` - Chunk size for uploads in bytes (default: 5242880 = 5MB)
 
 **Backend Service (dosyaindir-backend):**
