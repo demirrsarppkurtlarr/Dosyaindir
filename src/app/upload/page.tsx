@@ -41,21 +41,30 @@ export default function UploadPage() {
         formData.append("files", file)
       })
 
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setUploadProgress((prev) => Math.min(prev + 10, 90))
+      }, 500)
+
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       })
 
+      clearInterval(progressInterval)
+
       if (!response.ok) {
-        throw new Error("Upload failed")
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `Upload failed with status ${response.status}`)
       }
 
       const data = await response.json()
       setShareCode(data.shareCode)
       setUploadProgress(100)
     } catch (err) {
-      setError("Failed to upload files. Please try again.")
-      console.error(err)
+      setError(`Failed to upload files: ${err instanceof Error ? err.message : 'Unknown error'}`)
+      console.error("Upload error:", err)
+      setUploadProgress(0)
     } finally {
       setUploading(false)
     }

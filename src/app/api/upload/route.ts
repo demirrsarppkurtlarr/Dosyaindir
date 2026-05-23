@@ -5,6 +5,7 @@ import { generateShareCode } from "@/lib/utils"
 export async function POST(req: NextRequest) {
   // Check if Supabase is configured
   if (!supabase) {
+    console.error("Supabase not configured")
     return NextResponse.json({ error: "Supabase not configured" }, { status: 500 })
   }
 
@@ -15,6 +16,8 @@ export async function POST(req: NextRequest) {
     if (!files || files.length === 0) {
       return NextResponse.json({ error: "No files provided" }, { status: 400 })
     }
+
+    console.log(`Starting upload for ${files.length} files`)
 
     // Generate unique share code
     let shareCode = generateShareCode()
@@ -38,8 +41,11 @@ export async function POST(req: NextRequest) {
     }
 
     if (codeExists) {
+      console.error("Failed to generate unique code")
       return NextResponse.json({ error: "Failed to generate unique code" }, { status: 500 })
     }
+
+    console.log(`Generated share code: ${shareCode}`)
 
     // Upload files to Supabase Storage
     const uploadedFiles = []
@@ -47,6 +53,8 @@ export async function POST(req: NextRequest) {
       const fileExt = file.name.split(".").pop()
       const fileName = `${shareCode}/${Date.now()}-${file.name}`
       const filePath = `${fileName}`
+
+      console.log(`Uploading file: ${file.name} (${file.size} bytes)`)
 
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("files")
@@ -56,7 +64,7 @@ export async function POST(req: NextRequest) {
 
       if (uploadError) {
         console.error("Upload error:", uploadError)
-        return NextResponse.json({ error: "Failed to upload file" }, { status: 500 })
+        return NextResponse.json({ error: `Failed to upload file: ${uploadError.message}` }, { status: 500 })
       }
 
       uploadedFiles.push({
@@ -66,6 +74,8 @@ export async function POST(req: NextRequest) {
         path: filePath,
       })
     }
+
+    console.log(`Successfully uploaded ${uploadedFiles.length} files`)
 
     // Store file metadata in database
     for (const file of uploadedFiles) {
@@ -82,13 +92,14 @@ export async function POST(req: NextRequest) {
 
       if (dbError) {
         console.error("Database error:", dbError)
-        return NextResponse.json({ error: "Failed to save file metadata" }, { status: 500 })
+        return NextResponse.json({ error: `Failed to save file metadata: ${dbError.message}` }, { status: 500 })
       }
     }
 
+    console.log(`Upload complete with share code: ${shareCode}`)
     return NextResponse.json({ shareCode })
   } catch (error) {
     console.error("Upload error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: `Internal server error: ${error instanceof Error ? error.message : 'Unknown error'}` }, { status: 500 })
   }
 }
