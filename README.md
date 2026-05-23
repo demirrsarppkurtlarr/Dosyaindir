@@ -96,58 +96,40 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Deployment to Render
 
-### Automatic Deployment with render.yaml (Recommended)
+### Option 1: Using render.yaml (Recommended)
 
-This project uses a `render.yaml` configuration file that automatically sets up **2 separate services**:
-
-1. **dosyaindir** - Frontend Next.js application
-2. **dosyaindir-backend** - Backend API service
-
-#### Steps:
-
-1. Push your code to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/demirrsarppkurtlarr/Dosyaindir.git
-   git push -u origin main
-   ```
-
+1. Push your code to GitHub
 2. Go to [render.com](https://render.com)
-3. Click "New +" → "New Blueprint"
-4. Connect your GitHub repository: `demirrsarppkurtlarr/Dosyaindir`
+3. Click "New +" → "Web Service"
+4. Connect your GitHub repository
 5. Render will automatically detect the `render.yaml` file
-6. Configure environment variables for both services:
+6. Configure environment variables:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY` (backend only)
-   - `NEXT_PUBLIC_APP_URL` (frontend URL)
-   - `NEXT_PUBLIC_API_URL` (backend URL)
-   - `MAX_FILE_SIZE`
-   - `CHUNK_SIZE`
-7. Click "Apply Blueprint"
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_APP_URL` (your Render URL)
+7. Click "Deploy Web Service"
 
-Render will automatically create and deploy both services.
+### Option 2: Manual Configuration
+
+1. Push your code to GitHub
+2. Go to Render and create a new Web Service
+3. Configure:
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Environment**: Node
+   - **Branch**: `main`
+4. Add environment variables (same as above)
+5. Deploy
 
 ### Environment Variables for Render
 
-**Frontend Service (dosyaindir):**
-- `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
-- `NEXT_PUBLIC_APP_URL` - Your frontend URL (e.g., https://dosyaindir.onrender.com)
-- `NEXT_PUBLIC_API_URL` - Your backend URL (e.g., https://dosyaindir-backend.onrender.com)
-- `MAX_FILE_SIZE` - Maximum file size in bytes (default: 21474836480 = 20GB)
-- `CHUNK_SIZE` - Chunk size for uploads in bytes (default: 5242880 = 5MB)
-
-**Backend Service (dosyaindir-backend):**
 - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
 - `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key
-- `NEXT_PUBLIC_APP_URL` - Your backend URL (e.g., https://dosyaindir-backend.onrender.com)
-- `MAX_FILE_SIZE` - Maximum file size in bytes
-- `CHUNK_SIZE` - Chunk size for uploads in bytes
+- `NEXT_PUBLIC_APP_URL` - Your Render app URL (e.g., https://dosyaindir.onrender.com)
+- `MAX_FILE_SIZE` - Maximum file size in bytes (default: 5368709120 = 5GB)
+- `CHUNK_SIZE` - Chunk size for uploads in bytes (default: 5242880 = 5MB)
 
 ## Database Schema
 
