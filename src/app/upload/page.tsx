@@ -187,7 +187,10 @@ export default function UploadPage() {
                     )}
 
                     <Button
-                      onClick={handleUpload}
+                      onClick={() => {
+                        console.log("Upload button clicked, files:", files.length)
+                        handleUpload()
+                      }}
                       disabled={uploading}
                       className="w-full"
                       size="lg"
