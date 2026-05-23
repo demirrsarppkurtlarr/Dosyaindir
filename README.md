@@ -100,7 +100,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 This project uses a `render.yaml` configuration file that automatically sets up **2 separate services**:
 
-1. **dosyaindir-frontend** - Frontend Next.js application
+1. **dosyaindir** - Frontend Next.js application
 2. **dosyaindir-backend** - Backend API service
 
 #### Steps:
@@ -133,10 +133,10 @@ Render will automatically create and deploy both services.
 
 ### Environment Variables for Render
 
-**Frontend Service (dosyaindir-frontend):**
+**Frontend Service (dosyaindir):**
 - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Your Supabase anon key
-- `NEXT_PUBLIC_APP_URL` - Your frontend URL (e.g., https://dosyaindir-frontend.onrender.com)
+- `NEXT_PUBLIC_APP_URL` - Your frontend URL (e.g., https://dosyaindir.onrender.com)
 - `NEXT_PUBLIC_API_URL` - Your backend URL (e.g., https://dosyaindir-backend.onrender.com)
 - `MAX_FILE_SIZE` - Maximum file size in bytes (default: 21474836480 = 20GB)
 - `CHUNK_SIZE` - Chunk size for uploads in bytes (default: 5242880 = 5MB)

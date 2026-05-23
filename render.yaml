@@ -1,7 +1,7 @@
 services:
   # Frontend Service - Next.js App
   - type: web
-    name: dosyaindir-frontend
+    name: dosyaindir
     env: node
     plan: free
     buildCommand: npm install && npm run build
@@ -13,7 +13,7 @@ services:
         sync: false
       - key: NEXT_PUBLIC_APP_URL
         sync: false
-        defaultValue: https://dosyaindir-frontend.onrender.com
+        defaultValue: https://dosyaindir.onrender.com
       - key: MAX_FILE_SIZE
         sync: false
         defaultValue: "21474836480"
