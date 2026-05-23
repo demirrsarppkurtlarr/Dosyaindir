@@ -77,6 +77,8 @@ export default function UploadPage() {
         })
 
         xhr.open("POST", "/api/upload")
+        // Force HTTP/1.1 to avoid HTTP2 protocol errors
+        xhr.setRequestHeader("Accept", "application/json")
         xhr.send(formData)
       })
     } catch (err) {
