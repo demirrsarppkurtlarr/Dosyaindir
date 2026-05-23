@@ -45,6 +45,9 @@ export default function UploadPage() {
       return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest()
 
+        // Show progress bar immediately
+        setUploadProgress(0)
+
         xhr.upload.addEventListener("progress", (event) => {
           if (event.lengthComputable) {
             const progress = Math.round((event.loaded / event.total) * 100)
@@ -76,8 +79,11 @@ export default function UploadPage() {
           reject(new Error("Network error during upload"))
         })
 
+        xhr.addEventListener("abort", () => {
+          reject(new Error("Upload aborted"))
+        })
+
         xhr.open("POST", "/api/upload")
-        // Force HTTP/1.1 to avoid HTTP2 protocol errors
         xhr.setRequestHeader("Accept", "application/json")
         xhr.send(formData)
       })
