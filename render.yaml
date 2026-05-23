@@ -47,3 +47,6 @@ services:
       - key: CHUNK_SIZE
         sync: false
         defaultValue: "5242880"
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+        defaultValue: https://dosyaindir-backend.onrender.com
