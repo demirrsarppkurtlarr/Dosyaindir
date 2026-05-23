@@ -5,6 +5,11 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { code: string } }
 ) {
+  // Check if Supabase is configured
+  if (!supabase) {
+    return NextResponse.json({ error: "Supabase not configured" }, { status: 500 })
+  }
+
   try {
     const { code } = params
 

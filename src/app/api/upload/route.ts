@@ -3,6 +3,11 @@ import { supabase } from "@/lib/supabase"
 import { generateShareCode } from "@/lib/utils"
 
 export async function POST(req: NextRequest) {
+  // Check if Supabase is configured
+  if (!supabase) {
+    return NextResponse.json({ error: "Supabase not configured" }, { status: 500 })
+  }
+
   try {
     const formData = await req.formData()
     const files = formData.getAll("files") as File[]
