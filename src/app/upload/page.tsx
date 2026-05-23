@@ -59,9 +59,12 @@ export default function UploadPage() {
           if (xhr.status === 200) {
             try {
               const data = JSON.parse(xhr.responseText)
-              setShareCode(data.shareCode)
-              setUploadProgress(100)
-              resolve(data)
+              // Ensure progress bar is visible for at least 500ms
+              setTimeout(() => {
+                setShareCode(data.shareCode)
+                setUploadProgress(100)
+                resolve(data)
+              }, 500)
             } catch (e) {
               reject(new Error("Failed to parse response"))
             }
@@ -189,7 +192,7 @@ export default function UploadPage() {
                       <div className="space-y-2">
                         <Progress value={uploadProgress} />
                         <p className="text-sm text-center text-gray-500">
-                          Uploading... {uploadProgress}%
+                          {uploadProgress === 0 ? "Starting upload..." : `Uploading... ${uploadProgress}%`}
                         </p>
                       </div>
                     )}
